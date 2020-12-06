@@ -47,22 +47,40 @@
 * 使用[Rails_admin Gem](https://github.com/sferik/rails_admin)作为后台管理
 * 使用[Postgresql](http://postgresapp.com/)作为数据库
 
-使用前需要安装Bundler，Gem，Ruby，Rails等依赖环境。
+使用前需要安装Bundler，Ruby等依赖环境。
 
 请根据本地系统下载安装[postgresql](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup)数据库，并运行`psql -h localhost`检查安装情况。
 
 
 ## 安装
 
-在终端（MacOS或Linux）中执行以下代码
+首先请确保本项目的所有依赖（postgresql、ruby-bundler）均已安装，如果您正在使用ubuntu 20.04，可以使用下面的命令
 
+```bash
+apt update
+apt upgrade -y
+apt install -y ruby-dev ruby-bundler build-essential postgresql libpq-dev zlib1g-dev nodejs ruby-railties
+service postgresql start
 ```
-$ git clone https://github.com/PENGZhaoqing/CourseSelect
-$ cd CourseSelect
-$ bundle install
-$ rake db:migrate
-$ rake db:seed
-$ rails s 
+
+另外，请确保当前用户拥有访问postgresql中`courseselect_development`和`courseselect_test`数据库的权限，如果您正在使用ubuntu 20.04，可以使用下面的命令为当前用户授予访问数据库的权限
+
+```bash
+sudo -u postgres createuser -s "$(whoami)"
+sudo -u postgres psql -c 'create database courseselect_development;'
+sudo -u postgres psql -c 'create database courseselect_test;'
+```
+
+最后在终端（MacOS或Linux）中执行以下代码
+
+```bash
+git clone --depth=1 https://github.com/hksdpc250/CourseSelect-homework.git
+cd CourseSelect-homework
+bundle config set path 'vendor/bundle'
+bundle install
+bundle exec rake db:migrate
+bundle exec rake db:seed
+bundle exec rails s
 ```
 
 在浏览器中输入`localhost:3000`访问主页
