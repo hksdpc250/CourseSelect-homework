@@ -59,7 +59,7 @@
 ```bash
 apt update
 apt upgrade -y
-apt install -y postgresql ruby-bundler ruby-dev build-essential libpq-dev zlib1g-dev nodejs
+apt install -y postgresql ruby-bundler ruby-dev build-essential libpq-dev zlib1g-dev nodejs ruby-railties
 service postgresql start
 ```
 
@@ -80,13 +80,7 @@ bundle config set path 'vendor/bundle'
 bundle install # 如果这一步失败，可能是由于bundler版本不匹配，删除Gemfile.lock再重试一般可以解决该问题
 ```
 
-接下来进入虚拟环境
-
-```bash
-bundle exec "$SHELL"
-```
-
-在虚拟环境中，初始化数据库并运行
+初始化数据库并运行服务器
 
 ```bash
 rake db:migrate
